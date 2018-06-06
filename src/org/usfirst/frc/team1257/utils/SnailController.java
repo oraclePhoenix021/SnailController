@@ -15,11 +15,11 @@ public class SnailController extends XboxController {
 		double forwardSpeed = 0;
 		
 		if (getAButton()) {
-			forwardSpeed = GetY(true);
+			forwardSpeed = standardizeY(true);
 		} else if (getBumper(Hand.kLeft)) {
-			forwardSpeed = GetY(true);
+			forwardSpeed = standardizeY(true);
 		} else if (getBumper(Hand.kRight)) {
-			forwardSpeed = GetY(false);
+			forwardSpeed = standardizeY(false);
 		}
 		return forwardSpeed;
 	}
@@ -29,27 +29,21 @@ public class SnailController extends XboxController {
 		double turnSpeed = 0;
 		
 		if (getAButton()) {
-			turnSpeed = GetX(true);
+			turnSpeed = getX(Hand.kLeft);
+		
 		} else if (getBumper(Hand.kLeft)) {
-			turnSpeed = GetY(true);
+			turnSpeed = getX(Hand.kRight);
+		
 		} else if (getBumper(Hand.kRight)) {
-			turnSpeed = GetY(false);
+			turnSpeed = getX(Hand.kLeft);
 		}
 		return turnSpeed;
 	}
 	
-	public double GetY(boolean left) {
-		if(left) {
+	public double standardizeY(boolean leftJoystick) {
+		if(leftJoystick) {
 			return getY(Hand.kLeft) * -1;
-		}else {
-			return getY(Hand.kRight);
-		}
-	}
-	
-	public double GetX(boolean left) {
-		if(left) {
-			return getY(Hand.kLeft);
-		}else {
+		} else {
 			return getY(Hand.kRight);
 		}
 	}
