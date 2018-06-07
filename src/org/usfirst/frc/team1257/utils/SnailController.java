@@ -35,11 +35,9 @@ public class SnailController extends XboxController {
 		return turnSpeed;
 	}
 	
-	public double standardizeY(boolean leftJoystick) {
-		if(leftJoystick) {                      // If using left joystick
-			return getY(Hand.kLeft) * -1;       // Fix Y value to what it should be
-		} else {                                // Else
-			return getY(Hand.kRight);           // Leave it alone
-		}
+	@Override
+	public double getY(Hand side) {
+		//  if side is Hand.kLeft,  neg. value     else positive value
+		return side == Hand.kLeft ? -super.getY(side) : super.getY(side);
 	}
 }
